@@ -1,0 +1,28 @@
+import csv
+import pandas
+
+#read first column of csv file to string of words seperated
+#by tab
+
+your_list = []
+your_list2=[]
+with open('japanese occupation microsoft academic (w time).csv', 'rb') as f:
+    reader = csv.reader(f)
+
+colnames = ['title', 'date']
+
+data = pandas.read_csv('japanese occupation microsoft academic (w time).csv', names=colnames)
+
+
+your_list = data.title.tolist()
+your_list2=data.date.tolist()
+
+cleanedList = [x for x in your_list if str(x) != 'nan']
+cleanedList2 = [y for y in your_list2 if str(y) != 'nan']
+
+rows=zip(cleanedList,cleanedList2)
+
+with open('no more nan.csv', "w") as f:
+    writer = csv.writer(f)
+    for row in rows:
+        writer.writerow(row)
